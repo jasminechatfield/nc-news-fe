@@ -5,7 +5,7 @@ import LoginBar from "./components/LoginBar";
 import Dashboard from "./components/Dashboard";
 
 class App extends React.Component {
-  state = { username: "jazzchatfield" };
+  state = { username: "jessjelly" };
 
   render() {
     return (
@@ -13,7 +13,7 @@ class App extends React.Component {
         <Header>
           <LoginBar username={this.state.username} />
         </Header>
-        <Dashboard />
+        <Dashboard username={this.state.username} />
       </div>
     );
   }
