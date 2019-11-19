@@ -2,8 +2,10 @@ import axios from "axios";
 
 const baseURL = "https://nc-news-app-jazz.herokuapp.com/api";
 
-export const getArticles = async () => {
-  let { data } = await axios.get(`${baseURL}/articles`);
+export const getArticles = async (sort_by, order) => {
+  let { data } = await axios.get(`${baseURL}/articles`, {
+    params: { sort_by, order }
+  });
   return data.articles;
 };
 
@@ -12,8 +14,10 @@ export const getTopics = async () => {
   return data.topics;
 };
 
-export const getArticlesByTopic = async topicSlug => {
-  let { data } = await axios.get(`${baseURL}/articles?topic=${topicSlug}`);
+export const getArticlesByTopic = async (topic, sort_by, order) => {
+  let { data } = await axios.get(`${baseURL}/articles`, {
+    params: { topic, sort_by, order }
+  });
   return data.articles;
 };
 
