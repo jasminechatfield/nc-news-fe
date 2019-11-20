@@ -28,6 +28,7 @@ class CommentAdder extends React.Component {
             onChange={this.handleChange}
             placeholder={"Write your comment here..."}
             value={this.state.body}
+            required
           />
           <button onSubmit={this.handleSubmit}>Submit comment</button>
         </label>
