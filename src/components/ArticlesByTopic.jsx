@@ -76,6 +76,15 @@ class ArticlesByTopic extends React.Component {
         this.setState({ articles, articleCount: articles.length });
       });
     }
+    if (prevProps.topicSlug !== this.props.topicSlug) {
+      api.getArticlesByTopic(this.props.topicSlug).then(articles => {
+        this.setState({
+          articles,
+          articleCount: articles.length,
+          isLoading: false
+        });
+      });
+    }
   };
 }
 

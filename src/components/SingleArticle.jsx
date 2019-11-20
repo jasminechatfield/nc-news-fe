@@ -4,25 +4,25 @@ import * as api from "../api";
 import ArticleBody from "./ArticleBody";
 import CommentCard from "./CommentCard";
 import CommentAdder from "./CommentAdder";
+import ArticleVoter from "./ArticleVoter";
 
 class SingleArticle extends React.Component {
   state = { article: {}, comments: {}, isLoading: true, error: null };
 
   addComment = comment => {
-    // currently returning a 404, need to find out why
     this.setState(currentState => {
       return { comments: [comment, ...currentState.comments] };
     });
   };
 
   render() {
-    console.log(this.state);
     const { username } = this.props;
     const { article, isLoading, comments } = this.state;
     if (isLoading) return <p>Loading...</p>;
     return (
       <>
         <ArticleBody article={article} />
+        <ArticleVoter article_id={article.article_id} votes={article.votes} />
         <h3>Comments</h3>
         <CommentAdder
           addComment={this.addComment}
@@ -31,7 +31,13 @@ class SingleArticle extends React.Component {
         />
         <ul>
           {comments.map(comment => {
-            return <CommentCard key={comment.comment_id} comment={comment} />;
+            return (
+              <CommentCard
+                username={username}
+                key={comment.comment_id}
+                comment={comment}
+              />
+            );
           })}
         </ul>
       </>

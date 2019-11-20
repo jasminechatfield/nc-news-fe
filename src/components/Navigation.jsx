@@ -6,6 +6,10 @@ const Navigation = () => {
     <nav>
       <Link to="/allarticles">All Articles</Link>
       <Link to="/alltopics">All Topics</Link>
+      <br />
+      <Link to="/topics/football">/football</Link>
+      <Link to="/topics/coding">/coding</Link>
+      <Link to="/topics/cooking">/cooking</Link>
     </nav>
   );
 };

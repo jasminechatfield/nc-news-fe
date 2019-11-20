@@ -38,3 +38,11 @@ export const postComment = async (article_id, username, body) => {
   );
   return data.comment;
 };
+
+export const deleteComment = comment_id => {
+  return axios.delete(`${baseURL}/comments/${comment_id}`);
+};
+
+export const updateArticleVotes = (article_id, num) => {
+  return axios.patch(`${baseURL}/articles/${article_id}`, { inc_votes: num });
+};
