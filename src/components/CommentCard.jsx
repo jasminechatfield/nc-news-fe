@@ -1,6 +1,8 @@
 import React from "react";
 import * as api from "../api";
 
+import CommentVoter from "./CommentVoter";
+
 class CommentCard extends React.Component {
   state = { isDeleted: false };
 
@@ -20,15 +22,25 @@ class CommentCard extends React.Component {
 
   render() {
     const { isDeleted } = this.state;
-    if (isDeleted) return <li>COMMENT DELETED</li>;
     const { comment } = this.props;
+
+    if (isDeleted)
+      return (
+        <li>
+          <p>
+            {comment.created_at} by {comment.author}
+          </p>
+          <p>COMMENT DELETED</p>
+        </li>
+      );
+
     return (
       <li>
         <p>
           {comment.created_at} by {comment.author}
         </p>
         <p>{comment.body}</p>
-        <p>Votes: {comment.votes}</p>
+        <CommentVoter comment_id={comment.comment_id} votes={comment.votes} />
         {comment.author === this.props.username ? (
           <button id={comment.comment_id} onClick={this.handleClick}>
             Delete
