@@ -9,7 +9,7 @@ class Topics extends React.Component {
     const { isLoading, topics, topicCount } = this.state;
     if (isLoading) return <p>Loading...</p>;
     return (
-      <>
+      <main>
         <h2>Topics</h2>
         <p>Number of topics: {topicCount}</p>
         <ul>
@@ -17,7 +17,7 @@ class Topics extends React.Component {
             return <TopicCard key={topic.slug} topic={topic} />;
           })}
         </ul>
-      </>
+      </main>
     );
   }
 

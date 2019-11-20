@@ -20,7 +20,7 @@ class SingleArticle extends React.Component {
     const { article, isLoading, comments } = this.state;
     if (isLoading) return <p>Loading...</p>;
     return (
-      <>
+      <main>
         <ArticleBody article={article} />
         <ArticleVoter article_id={article.article_id} votes={article.votes} />
         <h3>Comments</h3>
@@ -40,7 +40,7 @@ class SingleArticle extends React.Component {
             );
           })}
         </ul>
-      </>
+      </main>
     );
   }
 

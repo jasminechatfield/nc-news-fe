@@ -41,7 +41,7 @@ class ArticlesByTopic extends React.Component {
     if (isLoading) return <p>Loading...</p>;
 
     return (
-      <>
+      <main>
         <h2>{topicSlug}</h2>
         <p>
           Number of articles: <strong>{articleCount}</strong>
@@ -52,7 +52,7 @@ class ArticlesByTopic extends React.Component {
             return <ArticleCard key={article.article_id} article={article} />;
           })}
         </ul>
-      </>
+      </main>
     );
   }
 

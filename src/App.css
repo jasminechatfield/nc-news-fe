@@ -1,0 +1,28 @@
+* {
+  font-family: "Overpass Mono", serif;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Noto Serif", serif;
+}
+
+h1 {
+  font-size: 7vw;
+  font-style: italic;
+}
+
+@media screen and (min-width: 600px) {
+  main {
+    display: inline-block;
+    width: 60%;
+    vertical-align: top;
+  }
+
+  aside {
+    width: 25%;
+    display: inline-block;
+    vertical-align: top;
+  }
+}

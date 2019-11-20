@@ -9,7 +9,7 @@ import SingleArticle from "./SingleArticle";
 
 const Dashboard = props => {
   return (
-    <main>
+    <div id="dashboard">
       <Router>
         <Articles path="/allarticles" />
         <Topics path="/alltopics" />
@@ -17,7 +17,7 @@ const Dashboard = props => {
         <SingleArticle path="/articles/:article_id" username={props.username} />
       </Router>
       <Sidebar />
-    </main>
+    </div>
   );
 };
 
