@@ -2,7 +2,7 @@ import React from "react";
 
 const ArticleSorter = props => {
   return (
-    <form onSubmit={props.useArticleSorter}>
+    <form className="articleSorter" onSubmit={props.useArticleSorter}>
       <label>
         Sort by:{" "}
         <select id="sort_by">
@@ -10,15 +10,15 @@ const ArticleSorter = props => {
           <option>Comments</option>
           <option>Votes</option>
         </select>
-      </label>
+      </label>{" "}
       <label>
         Order:{" "}
         <select id="order">
           <option>Highest / Most recent</option>
           <option>Lowest / Oldest</option>
         </select>
-      </label>
-      <button>Sort</button>
+      </label>{" "}
+      <button type="submit">Sort</button>
     </form>
   );
 };

@@ -6,6 +6,9 @@ import CommentCard from "./CommentCard";
 import CommentAdder from "./CommentAdder";
 import ArticleVoter from "./ArticleVoter";
 
+import formatDates from "../utils/formatDates";
+import ErrorDisplayer from "./ErrorDisplayer";
+
 class SingleArticle extends React.Component {
   state = { article: {}, comments: {}, isLoading: true, error: null };
 
@@ -17,13 +20,14 @@ class SingleArticle extends React.Component {
 
   render() {
     const { username } = this.props;
-    const { article, isLoading, comments } = this.state;
-    if (isLoading) return <p>Loading...</p>;
+    const { article, isLoading, comments, error } = this.state;
+    if (isLoading) return <p className="loading">Loading...</p>;
+    if (error) return <ErrorDisplayer error={error} />;
     return (
       <main>
         <ArticleBody article={article} />
         <ArticleVoter article_id={article.article_id} votes={article.votes} />
-        <h3>Comments</h3>
+        <h3>Comments: {article.comment_count}</h3>
         <CommentAdder
           addComment={this.addComment}
           username={username}
@@ -48,9 +52,17 @@ class SingleArticle extends React.Component {
     Promise.all([
       api.getCommentsForArticle(this.props.article_id),
       api.getSingleArticle(this.props.article_id)
-    ]).then(([comments, article]) => {
-      this.setState({ comments, article, isLoading: false });
-    });
+    ])
+      .then(([comments, article]) => {
+        this.setState({
+          comments: formatDates(comments),
+          article: formatDates([article])[0],
+          isLoading: false
+        });
+      })
+      .catch(error => {
+        this.setState({ error: error.response, isLoading: false });
+      });
   };
 }
 

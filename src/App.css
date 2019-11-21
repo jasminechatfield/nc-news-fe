@@ -5,24 +5,158 @@
 h1,
 h2,
 h3 {
-  font-family: "Noto Serif", serif;
+  font-family: "Overpass Mono", serif;
+  font-weight: bolder;
 }
 
 h1 {
-  font-size: 7vw;
-  font-style: italic;
+  font-size: 30px;
+  font-weight: 1000;
 }
 
-@media screen and (min-width: 600px) {
+a {
+  color: tomato;
+}
+
+a:hover {
+  background-color: black;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  font-weight: 1000;
+  font-size: 1em;
+}
+
+nav a {
+  text-decoration: none;
+  border-width: 3px;
+  border-style: solid;
+  border-color: black;
+  padding: 10px;
+  display: inline-block;
+  margin: 5px;
+}
+
+aside {
+  /* margin: 75px 10px 30px 10px; */
+  text-align: justify;
+}
+
+.articleCard {
+  display: grid;
+  grid-template-rows: auto auto auto auto;
+  grid-template-columns: 40px auto;
+  margin: 10px 0px;
+}
+
+.articleTitle {
+  font-size: 1em;
+  grid-row: 1/2;
+  grid-column: 2/3;
+  margin: 5px 30px;
+}
+
+.articleAuthor {
+  font-size: 0.8em;
+  grid-column: 2 / 3;
+  grid-row: 2/3;
+  margin: 5px 30px;
+}
+
+.articleComments {
+  grid-column: 2 / 3;
+  grid-row: 3/4;
+  margin: 5px 30px;
+}
+
+.articleVote {
+  grid-column: 1 / 2;
+  grid-row: 1/5;
+  margin: 0px;
+  text-align: center;
+  align-content: center;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.articleVote p {
+  font-size: 1.5em;
+  margin: 3px 0px;
+  padding: 0px;
+}
+
+.articleSorter {
+  margin: 20px 0px;
+}
+
+button {
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+}
+
+.up {
+  background-color: greenyellow;
+  margin: 10px 0px 0px 0px;
+}
+
+.down {
+  background-color: tomato;
+  margin: 0px 0px 10px 0px;
+}
+
+.loading {
+  font-size: 2em;
+  text-align: center;
+  margin: 50px;
+}
+
+@media screen and (min-width: 1000px) {
+  #dashboard {
+    display: grid;
+    grid-template-columns: 70% 30%;
+    grid-template-rows: auto;
+    width: 90%;
+    margin: 0px 50px;
+  }
+
+  h1 {
+    font-size: 50px;
+  }
+
+  nav {
+    font-size: 1.2em;
+  }
+
   main {
+    grid-column: 0 / 1;
     display: inline-block;
-    width: 60%;
-    vertical-align: top;
+    margin: 30px;
+  }
+
+  header {
+    margin: 80px 80px 0px 80px;
   }
 
   aside {
+    /* grid-column: 0 / 1; */
+    /* display: inline-block; */
+    position: fixed;
+    right: 50px;
     width: 25%;
-    display: inline-block;
-    vertical-align: top;
+  }
+
+  .articleTitle {
+    font-size: 1.2em;
+  }
+
+  .articleAuthor {
+    font-size: 1em;
   }
 }

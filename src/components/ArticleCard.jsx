@@ -5,14 +5,16 @@ import ArticleVoter from "./ArticleVoter";
 const ArticleCard = props => {
   const { article } = props;
   return (
-    <li>
+    <li className="articleCard">
       <Link to={`/articles/${article.article_id}`}>
-        <h3>{article.title}</h3>
+        <h3 className="articleTitle">{article.title}</h3>
       </Link>
-      <p>
+      <p className="articleAuthor">
         by {article.author} on {article.created_at}
       </p>
-      <p>Comments: {article.comment_count}</p>
+      <Link to={`/articles/${article.article_id}`}>
+        <p className="articleComments">Comments: {article.comment_count}</p>
+      </Link>
       <ArticleVoter article_id={article.article_id} votes={article.votes} />
     </li>
   );

@@ -42,9 +42,11 @@ class CommentCard extends React.Component {
         <p>{comment.body}</p>
         <CommentVoter comment_id={comment.comment_id} votes={comment.votes} />
         {comment.author === this.props.username ? (
-          <button id={comment.comment_id} onClick={this.handleClick}>
-            Delete
-          </button>
+          <p>
+            <button id={comment.comment_id} onClick={this.handleClick}>
+              Delete
+            </button>
+          </p>
         ) : (
           <></>
         )}

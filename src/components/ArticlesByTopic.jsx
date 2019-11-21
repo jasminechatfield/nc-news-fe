@@ -2,6 +2,8 @@ import React from "react";
 import * as api from "../api";
 import ArticleCard from "./ArticleCard";
 import ArticleSorter from "./ArticleSorter";
+import formatDates from "../utils/formatDates";
+import ErrorDisplayer from "./ErrorDisplayer";
 
 class ArticlesByTopic extends React.Component {
   state = {
@@ -36,13 +38,14 @@ class ArticlesByTopic extends React.Component {
 
   render() {
     const { topicSlug } = this.props;
-    const { articles, articleCount, isLoading } = this.state;
+    const { articles, articleCount, isLoading, error } = this.state;
 
-    if (isLoading) return <p>Loading...</p>;
+    if (isLoading) return <p className="loading">Loading...</p>;
+    if (error) return <ErrorDisplayer error={error} />;
 
     return (
       <main>
-        <h2>{topicSlug}</h2>
+        <h2>/{topicSlug}</h2>
         <p>
           Number of articles: <strong>{articleCount}</strong>
         </p>
@@ -58,13 +61,18 @@ class ArticlesByTopic extends React.Component {
 
   componentDidMount = () => {
     const { topicSlug } = this.props;
-    api.getArticlesByTopic(topicSlug).then(articles => {
-      this.setState({
-        articles,
-        articleCount: articles.length,
-        isLoading: false
+    api
+      .getArticlesByTopic(topicSlug)
+      .then(articles => {
+        this.setState({
+          articles: formatDates(articles),
+          articleCount: articles.length,
+          isLoading: false
+        });
+      })
+      .catch(error => {
+        this.setState({ error: error.response, isLoading: false });
       });
-    });
   };
 
   componentDidUpdate = (prevProps, prevState) => {
@@ -72,18 +80,35 @@ class ArticlesByTopic extends React.Component {
       prevState.sort_by !== this.state.sort_by ||
       prevState.order !== this.state.order
     ) {
-      api.getArticles(this.state.sort_by, this.state.order).then(articles => {
-        this.setState({ articles, articleCount: articles.length });
-      });
+      api
+        .getArticlesByTopic(
+          this.props.topicSlug,
+          this.state.sort_by,
+          this.state.order
+        )
+        .then(articles => {
+          this.setState({
+            articles: formatDates(articles),
+            articleCount: articles.length
+          });
+        })
+        .catch(error => {
+          this.setState({ error: error.response, isLoading: false });
+        });
     }
     if (prevProps.topicSlug !== this.props.topicSlug) {
-      api.getArticlesByTopic(this.props.topicSlug).then(articles => {
-        this.setState({
-          articles,
-          articleCount: articles.length,
-          isLoading: false
+      api
+        .getArticlesByTopic(this.props.topicSlug)
+        .then(articles => {
+          this.setState({
+            articles: formatDates(articles),
+            articleCount: articles.length,
+            isLoading: false
+          });
+        })
+        .catch(error => {
+          this.setState({ error: error.response, isLoading: false });
         });
-      });
     }
   };
 }

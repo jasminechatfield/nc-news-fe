@@ -3,6 +3,9 @@ import * as api from "../api";
 import ArticleCard from "./ArticleCard";
 import ArticleSorter from "./ArticleSorter";
 
+import formatDates from "../utils/formatDates";
+import ErrorDisplayer from "./ErrorDisplayer";
+
 class Articles extends React.Component {
   state = {
     articleCount: 0,
@@ -35,10 +38,10 @@ class Articles extends React.Component {
   };
 
   render() {
-    console.log(this.state);
-    const { isLoading, articles, articleCount } = this.state;
+    const { isLoading, articles, articleCount, error } = this.state;
 
-    if (isLoading) return <p>Loading...</p>;
+    if (isLoading) return <p className="loading">Loading...</p>;
+    if (error) return <ErrorDisplayer error={error} />;
 
     return (
       <main>
@@ -57,13 +60,18 @@ class Articles extends React.Component {
   }
 
   componentDidMount = () => {
-    api.getArticles().then(articles => {
-      this.setState({
-        articles,
-        isLoading: false,
-        articleCount: articles.length
+    api
+      .getArticles()
+      .then(articles => {
+        this.setState({
+          articles: formatDates(articles),
+          isLoading: false,
+          articleCount: articles.length
+        });
+      })
+      .catch(error => {
+        this.setState({ error: error.response, isLoading: false });
       });
-    });
   };
 
   componentDidUpdate = (prevProps, prevState) => {
@@ -72,7 +80,12 @@ class Articles extends React.Component {
       prevState.order !== this.state.order
     ) {
       api.getArticles(this.state.sort_by, this.state.order).then(articles => {
-        this.setState({ articles, articleCount: articles.length });
+        this.setState({
+          articles: formatDates(articles),
+          articleCount: articles.length
+        }).catch(error => {
+          this.setState({ error: error.response });
+        });
       });
     }
   };

@@ -11,8 +11,8 @@ const Dashboard = props => {
   return (
     <div id="dashboard">
       <Router>
-        <Articles path="/allarticles" />
-        <Topics path="/alltopics" />
+        <Articles path="/articles" default />
+        <Topics path="/topics" />
         <ArticlesByTopic path="/topics/:topicSlug" />
         <SingleArticle path="/articles/:article_id" username={props.username} />
       </Router>
