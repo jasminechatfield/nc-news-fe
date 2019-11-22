@@ -62,11 +62,11 @@ class Articles extends React.Component {
   componentDidMount = () => {
     api
       .getArticles()
-      .then(articles => {
+      .then(([articles, articleCount]) => {
         this.setState({
           articles: formatDates(articles),
           isLoading: false,
-          articleCount: articles.length
+          articleCount
         });
       })
       .catch(error => {
@@ -79,14 +79,17 @@ class Articles extends React.Component {
       prevState.sort_by !== this.state.sort_by ||
       prevState.order !== this.state.order
     ) {
-      api.getArticles(this.state.sort_by, this.state.order).then(articles => {
-        this.setState({
-          articles: formatDates(articles),
-          articleCount: articles.length
-        }).catch(error => {
+      api
+        .getArticles(this.state.sort_by, this.state.order)
+        .then(([articles, articleCount]) => {
+          this.setState({
+            articles: formatDates(articles),
+            articleCount
+          });
+        })
+        .catch(error => {
           this.setState({ error: error.response });
         });
-      });
     }
   };
 }

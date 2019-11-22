@@ -63,10 +63,10 @@ class ArticlesByTopic extends React.Component {
     const { topicSlug } = this.props;
     api
       .getArticlesByTopic(topicSlug)
-      .then(articles => {
+      .then(([articles, articleCount]) => {
         this.setState({
           articles: formatDates(articles),
-          articleCount: articles.length,
+          articleCount,
           isLoading: false
         });
       })
@@ -86,10 +86,10 @@ class ArticlesByTopic extends React.Component {
           this.state.sort_by,
           this.state.order
         )
-        .then(articles => {
+        .then(([articles, articleCount]) => {
           this.setState({
             articles: formatDates(articles),
-            articleCount: articles.length
+            articleCount
           });
         })
         .catch(error => {
@@ -99,10 +99,10 @@ class ArticlesByTopic extends React.Component {
     if (prevProps.topicSlug !== this.props.topicSlug) {
       api
         .getArticlesByTopic(this.props.topicSlug)
-        .then(articles => {
+        .then(([articles, articleCount]) => {
           this.setState({
             articles: formatDates(articles),
-            articleCount: articles.length,
+            articleCount,
             isLoading: false
           });
         })

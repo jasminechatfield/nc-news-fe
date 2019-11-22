@@ -55,6 +55,31 @@ aside {
   margin: 10px 0px;
 }
 
+.commentCard {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  grid-template-columns: 40px auto;
+  margin: 10px 0px;
+}
+
+#commentBy {
+  grid-column: 2/3;
+  grid-row: 1/2;
+  margin: 5px 30px;
+}
+
+#commentBody {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  margin: 5px 30px;
+}
+
+#commentDelete {
+  grid-column: 2/3;
+  grid-row: 3/4;
+  margin: 5px 30px;
+}
+
 .articleTitle {
   font-size: 1em;
   grid-row: 1/2;
@@ -75,7 +100,7 @@ aside {
   margin: 5px 30px;
 }
 
-.articleVote {
+.vote {
   grid-column: 1 / 2;
   grid-row: 1/5;
   margin: 0px;
@@ -85,7 +110,7 @@ aside {
   display: inline-block;
 }
 
-.articleVote p {
+.vote p {
   font-size: 1.5em;
   margin: 3px 0px;
   padding: 0px;
@@ -115,6 +140,11 @@ button {
   font-size: 2em;
   text-align: center;
   margin: 50px;
+}
+
+textarea {
+  width: 100%;
+  height: 100px;
 }
 
 @media screen and (min-width: 1000px) {

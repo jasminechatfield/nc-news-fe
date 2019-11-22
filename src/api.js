@@ -6,7 +6,7 @@ export const getArticles = async (sort_by, order) => {
   let { data } = await axios.get(`${baseURL}/articles`, {
     params: { sort_by, order }
   });
-  return data.articles;
+  return [data.articles, data.total_count];
 };
 
 export const getTopics = async () => {
@@ -18,7 +18,7 @@ export const getArticlesByTopic = async (topic, sort_by, order) => {
   let { data } = await axios.get(`${baseURL}/articles`, {
     params: { topic, sort_by, order }
   });
-  return data.articles;
+  return [data.articles, data.total_count];
 };
 
 export const getSingleArticle = async article_id => {
@@ -28,7 +28,7 @@ export const getSingleArticle = async article_id => {
 
 export const getCommentsForArticle = async article_id => {
   let { data } = await axios.get(`${baseURL}/articles/${article_id}/comments`);
-  return data.comments;
+  return [data.comments, data.total_count];
 };
 
 export const postComment = async (article_id, username, body) => {

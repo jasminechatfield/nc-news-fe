@@ -10,7 +10,12 @@ import formatDates from "../utils/formatDates";
 import ErrorDisplayer from "./ErrorDisplayer";
 
 class SingleArticle extends React.Component {
-  state = { article: {}, comments: {}, isLoading: true, error: null };
+  state = {
+    article: {},
+    comments: [],
+    isLoading: true,
+    error: null
+  };
 
   addComment = comment => {
     this.setState(currentState => {
@@ -53,7 +58,7 @@ class SingleArticle extends React.Component {
       api.getCommentsForArticle(this.props.article_id),
       api.getSingleArticle(this.props.article_id)
     ])
-      .then(([comments, article]) => {
+      .then(([[comments, commentCount], article]) => {
         this.setState({
           comments: formatDates(comments),
           article: formatDates([article])[0],

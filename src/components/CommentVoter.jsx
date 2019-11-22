@@ -17,11 +17,23 @@ class CommentVoter extends React.Component {
     const { voteChange } = this.state;
     console.log(voteChange);
     return (
-      <>
-        <button onClick={() => this.handleClick(1)}>Vote up</button>
-        Votes: {votes + voteChange}
-        <button onClick={() => this.handleClick(-1)}>Vote down</button>
-      </>
+      <div className="vote">
+        {this.state.voteChange > 0 ? (
+          <button disabled>XX</button>
+        ) : (
+          <button className="up" onClick={() => this.handleClick(1)}>
+            +1
+          </button>
+        )}
+        <p>{votes + voteChange}</p>
+        {this.state.voteChange < 0 ? (
+          <button disabled>XX</button>
+        ) : (
+          <button className="down" onClick={() => this.handleClick(-1)}>
+            -1
+          </button>
+        )}
+      </div>
     );
   }
 }

@@ -35,14 +35,14 @@ class CommentCard extends React.Component {
       );
 
     return (
-      <li>
-        <p>
+      <li className="commentCard">
+        <CommentVoter comment_id={comment.comment_id} votes={comment.votes} />
+        <p id="commentBy">
           {comment.created_at} by {comment.author}
         </p>
-        <p>{comment.body}</p>
-        <CommentVoter comment_id={comment.comment_id} votes={comment.votes} />
+        <p id="commentBody">{comment.body}</p>
         {comment.author === this.props.username ? (
-          <p>
+          <p id="commentDelete">
             <button id={comment.comment_id} onClick={this.handleClick}>
               Delete
             </button>

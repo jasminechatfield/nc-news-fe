@@ -17,14 +17,26 @@ class ArticleVoter extends React.Component {
     const { voteChange } = this.state;
     console.log(voteChange);
     return (
-      <div className="articleVote">
-        <button className="up" onClick={() => this.handleClick(1)}>
-          +1
-        </button>
+      <div className="vote">
+        {this.state.voteChange > 0 ? (
+          <button classname="no" disabled>
+            XX
+          </button>
+        ) : (
+          <button className="up" onClick={() => this.handleClick(1)}>
+            +1
+          </button>
+        )}
         <p>{votes + voteChange}</p>
-        <button className="down" onClick={() => this.handleClick(-1)}>
-          -1
-        </button>
+        {this.state.voteChange < 0 ? (
+          <button classname="no" disabled>
+            XX
+          </button>
+        ) : (
+          <button className="down" onClick={() => this.handleClick(-1)}>
+            -1
+          </button>
+        )}
       </div>
     );
   }
