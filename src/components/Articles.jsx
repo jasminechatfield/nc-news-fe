@@ -5,6 +5,7 @@ import ArticleSorter from "./ArticleSorter";
 
 import formatDates from "../utils/formatDates";
 import ErrorDisplayer from "./ErrorDisplayer";
+import PageChooser from "./PageChooser";
 
 class Articles extends React.Component {
   state = {
@@ -12,8 +13,13 @@ class Articles extends React.Component {
     articles: [],
     isLoading: true,
     error: null,
-    sort_by: "default",
-    order: "default"
+    sort_by: null,
+    order: null,
+    page: 0
+  };
+
+  updatePage = page => {
+    this.setState({ page });
   };
 
   useArticleSorter = event => {
@@ -55,6 +61,11 @@ class Articles extends React.Component {
             return <ArticleCard key={article.article_id} article={article} />;
           })}
         </ul>
+        <PageChooser
+          articleCount={this.state.articleCount}
+          page={this.state.page}
+          updatePage={this.updatePage}
+        />
       </main>
     );
   }
@@ -77,10 +88,11 @@ class Articles extends React.Component {
   componentDidUpdate = (prevProps, prevState) => {
     if (
       prevState.sort_by !== this.state.sort_by ||
-      prevState.order !== this.state.order
+      prevState.order !== this.state.order ||
+      prevState.page !== this.state.page
     ) {
       api
-        .getArticles(this.state.sort_by, this.state.order)
+        .getArticles(this.state.sort_by, this.state.order, this.state.page)
         .then(([articles, articleCount]) => {
           this.setState({
             articles: formatDates(articles),

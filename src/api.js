@@ -2,9 +2,9 @@ import axios from "axios";
 
 const baseURL = "https://nc-news-app-jazz.herokuapp.com/api";
 
-export const getArticles = async (sort_by, order) => {
+export const getArticles = async (sort_by, order, p) => {
   let { data } = await axios.get(`${baseURL}/articles`, {
-    params: { sort_by, order }
+    params: { sort_by, order, p }
   });
   return [data.articles, data.total_count];
 };

@@ -2,7 +2,7 @@ import React from "react";
 import * as api from "../api";
 
 class CommentAdder extends React.Component {
-  state = { body: "" };
+  state = { body: "", err: null };
 
   handleChange = event => {
     this.setState({ body: event.target.value });
@@ -11,13 +11,15 @@ class CommentAdder extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
     const { article_id, username } = this.props;
+    this.setState({ body: "" });
     api
       .postComment(article_id, username, this.state.body)
       .then(comment => {
         this.props.addComment(comment);
-        this.setState({ body: "" });
       })
-      .catch(console.log);
+      .catch(error => {
+        this.setState({ error: error.response });
+      });
   };
 
   render() {
@@ -30,7 +32,9 @@ class CommentAdder extends React.Component {
             value={this.state.body}
             required
           />
-          <button onSubmit={this.handleSubmit}>Submit comment</button>
+          <button className="submit" onSubmit={this.handleSubmit}>
+            Submit comment
+          </button>
         </label>
       </form>
     );
