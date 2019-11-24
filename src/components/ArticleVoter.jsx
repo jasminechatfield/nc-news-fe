@@ -18,7 +18,7 @@ class ArticleVoter extends React.Component {
     return (
       <div className="vote">
         {this.state.voteChange > 0 ? (
-          <button classname="no" disabled>
+          <button className="no" disabled>
             XX
           </button>
         ) : (
@@ -28,7 +28,7 @@ class ArticleVoter extends React.Component {
         )}
         <p>{votes + voteChange}</p>
         {this.state.voteChange < 0 ? (
-          <button classname="no" disabled>
+          <button className="no" disabled>
             XX
           </button>
         ) : (

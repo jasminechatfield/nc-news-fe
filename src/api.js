@@ -52,3 +52,13 @@ export const updateArticleVotes = (article_id, num) => {
 export const updateCommentVotes = (comment_id, num) => {
   return axios.patch(`${baseURL}/comments/${comment_id}`, { inc_votes: num });
 };
+
+export const postArticle = async (username, topic, title, body) => {
+  let { data } = await axios.post(`${baseURL}/articles`, {
+    username,
+    topic,
+    title,
+    body
+  });
+  return data.article;
+};
