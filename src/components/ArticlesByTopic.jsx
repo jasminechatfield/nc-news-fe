@@ -4,6 +4,7 @@ import ArticleCard from "./ArticleCard";
 import ArticleSorter from "./ArticleSorter";
 import formatDates from "../utils/formatDates";
 import ErrorDisplayer from "./ErrorDisplayer";
+import PageChooser from "./PageChooser";
 
 class ArticlesByTopic extends React.Component {
   state = {
@@ -11,8 +12,9 @@ class ArticlesByTopic extends React.Component {
     articleCount: 0,
     isLoading: true,
     error: null,
-    sort_by: "default",
-    order: "default"
+    sort_by: null,
+    order: null,
+    page: 0
   };
 
   useArticleSorter = event => {
@@ -36,9 +38,13 @@ class ArticlesByTopic extends React.Component {
     this.setState({ sort_by, order });
   };
 
+  updatePage = page => {
+    this.setState({ page });
+  };
+
   render() {
     const { topicSlug } = this.props;
-    const { articles, articleCount, isLoading, error } = this.state;
+    const { articles, articleCount, isLoading, error, page } = this.state;
 
     if (isLoading) return <p className="loading">Loading...</p>;
     if (error) return <ErrorDisplayer error={error} />;
@@ -55,6 +61,11 @@ class ArticlesByTopic extends React.Component {
             return <ArticleCard key={article.article_id} article={article} />;
           })}
         </ul>
+        <PageChooser
+          page={page}
+          count={articleCount}
+          updatePage={this.updatePage}
+        />
       </main>
     );
   }
@@ -78,13 +89,15 @@ class ArticlesByTopic extends React.Component {
   componentDidUpdate = (prevProps, prevState) => {
     if (
       prevState.sort_by !== this.state.sort_by ||
-      prevState.order !== this.state.order
+      prevState.order !== this.state.order ||
+      prevState.page !== this.state.page
     ) {
       api
         .getArticlesByTopic(
           this.props.topicSlug,
           this.state.sort_by,
-          this.state.order
+          this.state.order,
+          this.state.page
         )
         .then(([articles, articleCount]) => {
           this.setState({

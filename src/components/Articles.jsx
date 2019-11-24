@@ -24,8 +24,6 @@ class Articles extends React.Component {
 
   useArticleSorter = event => {
     event.preventDefault();
-    console.log(event.target[0].value); // sort_by
-    console.log(event.target[1].value); // order
     let sort_by = "";
     let order = "";
     if (event.target[0].value === "Date") {
@@ -56,13 +54,18 @@ class Articles extends React.Component {
           Number of articles: <strong>{articleCount}</strong>
         </p>
         <ArticleSorter useArticleSorter={this.useArticleSorter} />
+        <PageChooser
+          count={this.state.articleCount}
+          page={this.state.page}
+          updatePage={this.updatePage}
+        />
         <ul>
           {articles.map(article => {
             return <ArticleCard key={article.article_id} article={article} />;
           })}
         </ul>
         <PageChooser
-          articleCount={this.state.articleCount}
+          count={this.state.articleCount}
           page={this.state.page}
           updatePage={this.updatePage}
         />

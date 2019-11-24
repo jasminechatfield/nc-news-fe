@@ -1,21 +1,23 @@
 import React from "react";
 
 const PageChooser = props => {
-  const { updatePage, articleCount, page } = props;
+  const { updatePage, count, page } = props;
 
   let buttonArray = [];
 
-  for (let i = 1; i <= articleCount / 10 + 1; i++) {
+  for (let i = 1; i <= count / 10 + 1; i++) {
     buttonArray.push([i]);
   }
 
   return (
-    <>
+    <div id="pagechooser">
       {buttonArray.map(number => {
         return (
           <button
             key={number}
-            className="pagination"
+            className={
+              number - 1 === page ? "pagination current" : "pagination"
+            }
             onClick={() => {
               updatePage(number - 1);
             }}
@@ -24,7 +26,7 @@ const PageChooser = props => {
           </button>
         );
       })}
-    </>
+    </div>
 
     // <>
     //   <button

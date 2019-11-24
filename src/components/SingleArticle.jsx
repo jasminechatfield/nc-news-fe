@@ -8,31 +8,49 @@ import ArticleVoter from "./ArticleVoter";
 
 import formatDates from "../utils/formatDates";
 import ErrorDisplayer from "./ErrorDisplayer";
+import PageChooser from "./PageChooser";
 
 class SingleArticle extends React.Component {
   state = {
+    commentCount: 0,
     article: {},
     comments: [],
     isLoading: true,
-    error: null
+    error: null,
+    page: 0
   };
 
   addComment = comment => {
     this.setState(currentState => {
-      return { comments: [comment, ...currentState.comments] };
+      return {
+        comments: [comment, ...currentState.comments],
+        page: 0,
+        commentCount: currentState.commentCount + 1
+      };
     });
+  };
+
+  updatePage = page => {
+    this.setState({ page });
   };
 
   render() {
     const { username } = this.props;
-    const { article, isLoading, comments, error } = this.state;
+    const {
+      article,
+      isLoading,
+      comments,
+      error,
+      page,
+      commentCount
+    } = this.state;
     if (isLoading) return <p className="loading">Loading...</p>;
     if (error) return <ErrorDisplayer error={error} />;
     return (
       <main>
         <ArticleBody article={article} />
         <ArticleVoter article_id={article.article_id} votes={article.votes} />
-        <h3>Comments: {article.comment_count}</h3>
+        <h3>Comments: {commentCount}</h3>
         <CommentAdder
           addComment={this.addComment}
           username={username}
@@ -49,9 +67,24 @@ class SingleArticle extends React.Component {
             );
           })}
         </ul>
+        <PageChooser
+          page={page}
+          updatePage={this.updatePage}
+          count={commentCount}
+        />
       </main>
     );
   }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevState.page !== this.state.page) {
+      api
+        .getCommentsForArticle(this.props.article_id, this.state.page)
+        .then(([comments]) => {
+          this.setState({ comments: formatDates(comments) });
+        });
+    }
+  };
 
   componentDidMount = () => {
     Promise.all([
@@ -60,6 +93,7 @@ class SingleArticle extends React.Component {
     ])
       .then(([[comments, commentCount], article]) => {
         this.setState({
+          commentCount,
           comments: formatDates(comments),
           article: formatDates([article])[0],
           isLoading: false

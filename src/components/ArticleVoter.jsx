@@ -15,7 +15,6 @@ class ArticleVoter extends React.Component {
   render() {
     const { votes } = this.props;
     const { voteChange } = this.state;
-    console.log(voteChange);
     return (
       <div className="vote">
         {this.state.voteChange > 0 ? (
