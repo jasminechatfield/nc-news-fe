@@ -62,3 +62,7 @@ export const postArticle = async (username, topic, title, body) => {
   });
   return data.article;
 };
+
+export const deleteArticle = article_id => {
+  return axios.delete(`${baseURL}/articles/${article_id}`);
+};

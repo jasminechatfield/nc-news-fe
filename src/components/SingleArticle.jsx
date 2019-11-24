@@ -1,4 +1,5 @@
 import React from "react";
+import { navigate } from "@reach/router";
 import * as api from "../api";
 
 import ArticleBody from "./ArticleBody";
@@ -34,6 +35,21 @@ class SingleArticle extends React.Component {
     this.setState({ page });
   };
 
+  handleClick = event => {
+    this.deleteArticle();
+  };
+
+  deleteArticle = () => {
+    const question = window.confirm(
+      "Are you sure you want to delete this article?"
+    );
+    if (question === true) {
+      api.deleteArticle(this.state.article.article_id).then(() => {
+        navigate(`/topics/${this.state.article.topic}`);
+      });
+    }
+  };
+
   render() {
     const { username } = this.props;
     const {
@@ -49,7 +65,15 @@ class SingleArticle extends React.Component {
     return (
       <main>
         <ArticleBody article={article} />
+        {article.author === username ? (
+          <p>
+            <button onClick={this.handleClick}>Delete this article</button>
+          </p>
+        ) : (
+          <></>
+        )}
         <ArticleVoter article_id={article.article_id} votes={article.votes} />
+
         <h3>Comments: {commentCount}</h3>
         <CommentAdder
           addComment={this.addComment}
