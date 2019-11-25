@@ -2,13 +2,18 @@ import React from "react";
 import * as api from "../api";
 
 import ArticleCard from "./ArticleCard";
+import PageChooser from "./PageChooser";
 
 class UserPage extends React.Component {
   state = { user: {}, articles: [], articleCount: 0, page: 0, error: null };
 
+  updatePage = page => {
+    this.setState({ page });
+  };
+
   render() {
     console.log(this.state);
-    const { user, articles, articleCount } = this.state;
+    const { user, articles, articleCount, page } = this.state;
     return (
       <main>
         <h2>{user.username}'s user page</h2>
@@ -22,6 +27,11 @@ class UserPage extends React.Component {
           <p>Articles: {articleCount}</p>
         </div>
         <h2>Articles by {user.username}</h2>
+        <PageChooser
+          count={articleCount}
+          page={page}
+          updatePage={this.updatePage}
+        />
         <ul>
           {articles.map(article => {
             return <ArticleCard key={article.article_id} article={article} />;
@@ -42,6 +52,16 @@ class UserPage extends React.Component {
         this.setState({ user, articles, articleCount });
       }
     );
+  };
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevState.page !== this.state.page) {
+      api
+        .getArticlesByUser(this.props.username, this.state.page)
+        .then(([articles, count]) => {
+          this.setState({ articles });
+        });
+    }
   };
 }
 

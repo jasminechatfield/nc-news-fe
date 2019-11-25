@@ -72,7 +72,9 @@ export const getUser = async username => {
   return data.user;
 };
 
-export const getArticlesByUser = async author => {
-  let { data } = await axios.get(`${baseURL}/articles`, { params: { author } });
+export const getArticlesByUser = async (author, p) => {
+  let { data } = await axios.get(`${baseURL}/articles`, {
+    params: { author, p }
+  });
   return [data.articles, data.total_count];
 };

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "@reach/router";
 
 const ArticleBody = props => {
   const { article } = props;
@@ -6,7 +7,9 @@ const ArticleBody = props => {
     <>
       <h2>{article.title}</h2>
       <p>{article.created_at}</p>
-      <p>by {article.author}</p>
+      <p>
+        by <Link to={`/users/${article.author}`}>{article.author}</Link>
+      </p>
       <p>{article.body}</p>
     </>
   );

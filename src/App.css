@@ -184,7 +184,7 @@ textarea {
 
   main {
     grid-column: 0 / 1;
-    display: inline-block;
+    /* display: inline-block; */
     margin: 30px;
   }
 

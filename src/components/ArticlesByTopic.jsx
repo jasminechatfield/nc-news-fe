@@ -62,6 +62,11 @@ class ArticlesByTopic extends React.Component {
           </Link>
         </p>
         <ArticleSorter useArticleSorter={this.useArticleSorter} />
+        <PageChooser
+          page={page}
+          count={articleCount}
+          updatePage={this.updatePage}
+        />
         <ul>
           {articles.map(article => {
             return <ArticleCard key={article.article_id} article={article} />;
