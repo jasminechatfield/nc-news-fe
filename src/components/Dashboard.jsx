@@ -8,6 +8,7 @@ import ArticlesByTopic from "./ArticlesByTopic";
 import SingleArticle from "./SingleArticle";
 import ArticlePoster from "./ArticlePoster";
 import UserPage from "./UserPage";
+import SignUpPage from "./SignUpPage";
 
 const Dashboard = props => {
   return (
@@ -22,6 +23,7 @@ const Dashboard = props => {
           username={props.username}
         />
         <UserPage path="/users/:username" loggedInUsername={props.username} />
+        <SignUpPage path="/createuser" />
       </Router>
       <Sidebar />
     </div>

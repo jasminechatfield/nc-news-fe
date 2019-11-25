@@ -12,7 +12,6 @@ class UserPage extends React.Component {
   };
 
   render() {
-    console.log(this.state);
     const { user, articles, articleCount, page } = this.state;
     return (
       <main>
@@ -42,8 +41,6 @@ class UserPage extends React.Component {
   }
 
   componentDidMount = () => {
-    // get user
-    // get articles by user
     const { username } = this.props;
     const getUser = api.getUser(username);
     const getArticlesByUser = api.getArticlesByUser(username);
