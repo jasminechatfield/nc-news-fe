@@ -7,6 +7,7 @@ import Sidebar from "./Sidebar";
 import ArticlesByTopic from "./ArticlesByTopic";
 import SingleArticle from "./SingleArticle";
 import ArticlePoster from "./ArticlePoster";
+import UserPage from "./UserPage";
 
 const Dashboard = props => {
   return (
@@ -20,6 +21,7 @@ const Dashboard = props => {
           path="/topics/:topicSlug/new"
           username={props.username}
         />
+        <UserPage path="/users/:username" loggedInUsername={props.username} />
       </Router>
       <Sidebar />
     </div>

@@ -10,7 +10,8 @@ const ArticleCard = props => {
         <h3 className="articleTitle">{article.title}</h3>
       </Link>
       <p className="articleAuthor">
-        by {article.author} on {article.created_at}
+        by <Link to={`/users/${article.author}`}>{article.author}</Link> on{" "}
+        {article.created_at}
       </p>
       <Link to={`/articles/${article.article_id}`}>
         <p className="articleComments">Comments: {article.comment_count}</p>

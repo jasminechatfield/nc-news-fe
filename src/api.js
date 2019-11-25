@@ -66,3 +66,13 @@ export const postArticle = async (username, topic, title, body) => {
 export const deleteArticle = article_id => {
   return axios.delete(`${baseURL}/articles/${article_id}`);
 };
+
+export const getUser = async username => {
+  let { data } = await axios.get(`${baseURL}/users/${username}`);
+  return data.user;
+};
+
+export const getArticlesByUser = async author => {
+  let { data } = await axios.get(`${baseURL}/articles`, { params: { author } });
+  return [data.articles, data.total_count];
+};

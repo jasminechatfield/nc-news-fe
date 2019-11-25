@@ -5,6 +5,7 @@ import ArticleSorter from "./ArticleSorter";
 import formatDates from "../utils/formatDates";
 import ErrorDisplayer from "./ErrorDisplayer";
 import PageChooser from "./PageChooser";
+import { Link } from "@reach/router";
 
 class ArticlesByTopic extends React.Component {
   state = {
@@ -54,6 +55,11 @@ class ArticlesByTopic extends React.Component {
         <h2>/{topicSlug}</h2>
         <p>
           Number of articles: <strong>{articleCount}</strong>
+        </p>
+        <p>
+          <Link to={`/topics/${topicSlug}/new`}>
+            <button>Post a new article</button>
+          </Link>
         </p>
         <ArticleSorter useArticleSorter={this.useArticleSorter} />
         <ul>
