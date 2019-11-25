@@ -9,6 +9,10 @@ const PageChooser = props => {
     buttonArray.push([i]);
   }
 
+  if (buttonArray.length <= 1) {
+    return <></>;
+  }
+
   return (
     <div id="pagechooser">
       {buttonArray.map(number => {

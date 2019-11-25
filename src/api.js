@@ -78,3 +78,12 @@ export const getArticlesByUser = async (author, p) => {
   });
   return [data.articles, data.total_count];
 };
+
+export const createUser = async (username, name) => {
+  let { data } = await axios.post(`${baseURL}/users`, { username, name });
+  return data.user;
+};
+
+export const deleteUser = username => {
+  return axios.delete(`${baseURL}/users/${username}`);
+};
